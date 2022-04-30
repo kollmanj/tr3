@@ -4,20 +4,26 @@
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 #from clientSide import Base
-from clientSide import Ui_clientSocketGUI
+from clientSide import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
 #from serverSide import Base
 
 def client(name):
     
-    
     app = QtWidgets.QApplication(sys.argv)
-    gui = QtWidgets.QMainWindow()
-    ui = Ui_clientSocketGUI()
-    ui.setupUi(gui)
-    gui.show()
+    socketClient = QtWidgets.QMainWindow()
+    ui = Ui_socketClient()
+    ui.setupUi(socketClient)
+    socketClient.show()
     sys.exit(app.exec_())
+    
+    # app = QtWidgets.QApplication(sys.argv)
+    # gui = QtWidgets.QMainWindow()
+    # ui = Ui_clientSocketGUI()
+    # ui.setupUi(gui)
+    # gui.show()
+    # sys.exit(app.exec_())
 
     #sc = Base()  # client side test line 1
     #sc.test()    # client side test line 2 End

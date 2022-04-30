@@ -83,7 +83,7 @@ class Ui_socketClient(object):
         self.comboBoxApp.setItemText(1, _translate("socketClient", "plotter"))
 
 if __name__ == "__main__":
-    import sys
+    # import sys
     app = QtWidgets.QApplication(sys.argv)
     socketClient = QtWidgets.QMainWindow()
     ui = Ui_socketClient()
