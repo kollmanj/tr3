@@ -7,7 +7,7 @@ class Base:
         #print(f'Hi, {self.ip}')
 
     def test(self):
-        socketConnect()
+        self.socketConnect()
 
         while True:
             print('Waiting for client to connect')
