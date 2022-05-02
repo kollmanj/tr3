@@ -17,17 +17,7 @@ def client(name):
     ui.setupUi(socketClient)
     socketClient.show()
     sys.exit(app.exec_())
-    
-    # app = QtWidgets.QApplication(sys.argv)
-    # gui = QtWidgets.QMainWindow()
-    # ui = Ui_clientSocketGUI()
-    # ui.setupUi(gui)
-    # gui.show()
-    # sys.exit(app.exec_())
-
-    #sc = Base()  # client side test line 1
-    #sc.test()    # client side test line 2 End
-    
+        
 def server(name):  #TODO
 
     sc = Base()  # client side test line 1
