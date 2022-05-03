@@ -1,9 +1,11 @@
 import socket
 
 class Base:
-    def __init__(self, ip = '10.0.0.187', port = 1234):
+    def __init__(self, ip = '10.0.0.187', port = 1234, function='test'):
         self.ip = ip
         self.port = port
+        if function == 'test':
+            self.test()
         #print(f'Hi, {self.ip}')
 
     def test(self):
@@ -23,4 +25,4 @@ class Base:
         
 if __name__ == '__main__':
     b = Base()
-    b.test()
+
