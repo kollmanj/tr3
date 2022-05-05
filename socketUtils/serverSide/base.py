@@ -14,7 +14,10 @@ class Base:
         self.port = port
         if function == 'test':
             self.test()
-        #print(f'Hi, {self.ip}')
+        elif function == 'mpu9250':
+            self.mpu9250()
+        else:
+            self.test()
 
     def test(self):
         self.socketConnect()
@@ -102,5 +105,6 @@ class Base:
         ##############################
         
 if __name__ == '__main__':
-    b = Base()
+    # b = Base()
+    b = Base('mpu9250')
 
