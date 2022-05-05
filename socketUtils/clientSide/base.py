@@ -35,7 +35,7 @@ def BBNAU7802():
 
 def MPU9250_BBBlue():
     try:
-        m = MPU9250('10.0.0.224')
+        m = MPU9250('10.0.0.236')
         
         fig, ax = plt.subplots()
         scope = Scope(ax,ylim_min=-11,ylim_max=11)
