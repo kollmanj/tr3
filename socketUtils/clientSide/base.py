@@ -35,7 +35,7 @@ def BBNAU7802():
 
 def MPU9250_BBBlue():
     try:
-        m = MPU9250('10.0.0.236')
+        m = MPU9250('10.0.0.223')
         
         fig, ax = plt.subplots()
         scope = Scope(ax,ylim_min=-11,ylim_max=11)
@@ -136,11 +136,17 @@ class socketPlotter():
 
 # reads data coming from the MPU9250 on the beaglebone blue
 class MPU9250(socketPlotter):
-
+    def __init__(self,ip='10.0.0.223',msgSize=253):
+        self.msgSize = msgSize  #  specific to the message, has to be right, find size of msg being sent, put it here
+        self.serverIP = ip
+        self.serverPort = 1234
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.sock.connect((self.serverIP,self.serverPort))
+        self.msg = []
     def loop(self):  # this is the emmitter is the example
         while True:
             msg_bytes = self.sock.recv(self.msgSize)
-            self.msg = pickle.loads(msg_bytes)
+            self.msg = pickle.loads(msg_bytes)   #######################################ERROR HERE
             accel_dict = self.msg[0] 
             accel_data = accel_dict['accel']   # for accelerometer
             yield accel_data[0]  # for accelerometer
@@ -191,6 +197,6 @@ class tr3():
            
 
 if __name__ == '__main__':
-    #MPU9250_BBBlue()  # for the accelerometer
+    MPU9250_BBBlue()  # for the accelerometer
     #tr3BBB()     # for the temperature
-    BBNAU7802()
+    #BBNAU7802()

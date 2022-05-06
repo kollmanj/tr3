@@ -106,5 +106,5 @@ class Base:
         
 if __name__ == '__main__':
     # b = Base()
-    b = Base('mpu9250')
+    b = Base(function = 'mpu9250')
 
