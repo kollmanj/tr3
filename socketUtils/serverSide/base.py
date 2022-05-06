@@ -56,7 +56,7 @@ class Base:
         
         
         print('Wait for Socket Connection')
-        clientsocket, address = s.accept()
+        clientsocket, address = self.s.accept()
         print(f"Connection from {address} has been established!")
         
         print("Press Ctrl-C to exit")
