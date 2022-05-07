@@ -120,7 +120,7 @@ class Base:
         #HEADER = "{:<1{HEADERSIZE}}".format(HEADER_MSG)
         
          s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-         s.bind(('10.0.0.250', 1234))
+         s.bind(('', 1234))
          s.listen(5)  # que
         
         
