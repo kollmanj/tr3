@@ -198,5 +198,8 @@ class tr3():
 
 if __name__ == '__main__':
     #MPU9250_BBBlue()  # for the accelerometer
-    tr3BBB()     # for the temperature
+    #tr3BBB()     # for the temperature
     #BBNAU7802()
+    a = tr3()
+    a.loop()
+    

@@ -2,6 +2,7 @@ import time
 import getopt, sys
 import pickle
 import socket
+import smbus
 # import rcpy library
 # This automatically initizalizes the robotics cape
 import rcpy 
@@ -41,12 +42,6 @@ class Base:
         self.s.listen(5)
         
     def mpu9250(self):
-        print('todo')
-        
-        
-        ##############################
-
-        
         
         
         
