@@ -11,7 +11,8 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from clientSide import Base
+from base import *
+
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -67,8 +68,9 @@ class Ui_socketClient(object):
             a = Base(ipaddressString, int(portNumberString))
             print('test')
             a.test()
-        else:
-            print('Plot')
+        else:         
+            MPU9250_BBBlue() 
+
 
     def retranslateUi(self, socketClient):
         _translate = QtCore.QCoreApplication.translate

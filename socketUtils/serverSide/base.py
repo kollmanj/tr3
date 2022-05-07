@@ -7,6 +7,10 @@ import socket
 import rcpy 
 import rcpy.mpu9250 as mpu9250
 
+import rcpy 
+import Adafruit_BBIO.ADC as ADC
+
+
 
 class Base:
     def __init__(self, ip = '10.0.0.187', port = 1234, function='test'):
@@ -103,6 +107,92 @@ class Base:
         finally:
             print("\nBye BeagleBone!")
         ##############################
+     
+    def tr3(self):
+         ADC.setup()
+         analogPin="P9_33"
+         rcpy.set_state(rcpy.RUNNING)
+        #mpu9250.initialize(enable_magnetometer = True)
+        
+        #  tcp socket HEADER
+        #HEADERSIZE = 15
+        #HEADER_MSG = f"The time is! {time.time()}"
+        #HEADER = "{:<1{HEADERSIZE}}".format(HEADER_MSG)
+        
+         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+         s.bind(('10.0.0.250', 1234))
+         s.listen(5)  # que
+        
+        
+         print('Wait for Socket Connection')
+         clientsocket, address = s.accept()
+         print(f"Connection from {address} has been established!")
+        
+         print("Press Ctrl-C to exit")
+        
+         # header for server text
+         print("   Temp |"
+               "    RPM |", end='')
+         print(' Speed')
+        
+        #i2c stuff
+        # https://buildmedia.readthedocs.org/media/pdf/smbus2/latest/smbus2.pdf
+         bus = smbus.SMBus(2)
+        
+        # https://learn.sparkfun.com/tutorials/qwiic-twist-hookup-guide?_ga=2.49289955.413216710.1625936826-1471235166.1616426344
+         i2cAddress1 = 0x3F
+         i2cAddress2 = 0x40
+         sample_rate = 0.1
+        
+        # zero the i2c buttons
+         bus.write_word_data(i2cAddress1,5,0)
+         bus.write_word_data(i2cAddress2,5,0)
+        
+         # do lights
+         bus.write_byte_data(i2cAddress1,13,0)
+         bus.write_byte_data(i2cAddress2,13,0)
+         bus.write_byte_data(i2cAddress1,14,255)
+         bus.write_byte_data(i2cAddress2,14,0)
+         bus.write_byte_data(i2cAddress1,15,0)
+         bus.write_byte_data(i2cAddress2,15,255)
+        
+         try:    # keep running
+             while True:
+                 if rcpy.get_state() == rcpy.RUNNING:
+                     potVal = ADC.read(analogPin)
+                     #temp = mpu9250.read_imu_temp()
+                     #data = mpu9250.read()
+                     data = potVal
+                    
+                     print(data, end="\t")
+                    
+                     rpm  = bus.read_word_data(i2cAddress1,5)
+                    
+                     print(rpm, end="\t")
+                    
+                     speed = bus.read_word_data(i2cAddress2,5)
+                    
+                     print(speed, end="\r")
+                          
+                     #print(formatted_txt,end='')
+        
+                     # now do the socket thing
+                     msg = pickle.dumps((data,rpm,speed,sample_rate))
+                     #msg = bytes(f'{len(msg):<{HEADERSIZE}}',"utf-8") + msg
+                     #msg = bytes(f'{len(msg):<{HEADERSIZE}}'+formatted_txt,"utf-8")
+                    
+                     clientsocket.send(msg)
+                    
+                 time.sleep(sample_rate)  # sleep some
+                
+         except KeyboardInterrupt:
+             # Catch Ctrl-C
+             pass
+        
+         finally:
+             print("\nBye BeagleBone!")
+
+
         
 if __name__ == '__main__':
     # b = Base()
