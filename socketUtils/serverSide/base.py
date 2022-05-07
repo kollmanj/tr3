@@ -20,6 +20,8 @@ class Base:
             self.test()
         elif function == 'mpu9250':
             self.mpu9250()
+        elif function == 'tr3':
+            self.tr3()
         else:
             self.test()
 
@@ -196,5 +198,5 @@ class Base:
         
 if __name__ == '__main__':
     # b = Base()
-    b = Base(function = 'mpu9250')
+    b = Base(function = 'tr3')
 
