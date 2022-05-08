@@ -154,7 +154,7 @@ class MPU9250(socketPlotter):
 # this class is for reading a data pickled and sent
 class tr3():
      def __init__(self,ip='10.0.0.223'):
-        self.msgSize = 500
+        self.msgSize = 29
         self.serverIP = ip
         self.serverPort = 1234
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -171,9 +171,9 @@ class tr3():
             msg_bytes = self.sock.recv(self.msgSize)
             self.msg = pickle.loads(msg_bytes)
             self.temperature = self.msg[0]
-            self.rpm= self.msg[1]
-            self.speed = self.msg[2]
-            self.sample_rate = self.msg[3]
+            # self.rpm= self.msg[1]
+            # self.speed = self.msg[2]
+            # self.sample_rate = self.msg[3]
             if dataType == 'temp':
                 reading = self.msg[0] 
                 # convert reading to Volts
@@ -184,15 +184,15 @@ class tr3():
                 ohms = R*V/(Vmax-V)
                 # convert from ohms to temperature
                 y2 = 852.51*ohms**-0.296
-                output = y2
-                print(output,end='\t')
-            elif dataType == 'rpm':
-                output = self.msg[1]
-                print(output,end='\t')
-            else:
-                output = self.msg[2]
-                print(output,end='\r')
-            yield output
+            #     output = y2
+            #     print(output,end='\t')
+            # elif dataType == 'rpm':
+            #     output = self.msg[1]
+            #     print(output,end='\t')
+            # else:
+            #     output = self.msg[2]
+            #     print(output,end='\r')
+            # yield output
 
            
 
