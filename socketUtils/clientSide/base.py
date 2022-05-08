@@ -154,7 +154,7 @@ class MPU9250(socketPlotter):
 # this class is for reading a data pickled and sent
 class tr3():
      def __init__(self,ip='10.0.0.223'):
-        self.msgSize = 29
+        self.msgSize = 41
         self.serverIP = ip
         self.serverPort = 1234
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -170,7 +170,7 @@ class tr3():
         while True:
             msg_bytes = self.sock.recv(self.msgSize)
             self.msg = pickle.loads(msg_bytes)
-            self.temperature = self.msg[0]
+            #self.temperature = self.msg[0]
             # self.rpm= self.msg[1]
             # self.speed = self.msg[2]
             # self.sample_rate = self.msg[3]
