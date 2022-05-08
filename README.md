@@ -16,4 +16,5 @@ download on beaglebone ignoring changes:
 git fetch
 git reset --hard HEAD
 git merge '@{u}'
-
+# Turning gui layout thing to code:
+>pyuic5 -x .\socketClient.ui -o .\serverGUI.py

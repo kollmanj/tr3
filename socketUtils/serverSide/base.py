@@ -134,24 +134,24 @@ class Base:
         
         #i2c stuff
         # https://buildmedia.readthedocs.org/media/pdf/smbus2/latest/smbus2.pdf
-         bus = smbus.SMBus(2)
+        # bus = smbus.SMBus(2)
         
         # https://learn.sparkfun.com/tutorials/qwiic-twist-hookup-guide?_ga=2.49289955.413216710.1625936826-1471235166.1616426344
-         i2cAddress1 = 0x3F
-         i2cAddress2 = 0x40
+         # i2cAddress1 = 0x3F
+         # i2cAddress2 = 0x40
          sample_rate = 0.1
         
         # zero the i2c buttons
-         bus.write_word_data(i2cAddress1,5,0)
-         bus.write_word_data(i2cAddress2,5,0)
-        
-         # do lights
-         bus.write_byte_data(i2cAddress1,13,0)
-         bus.write_byte_data(i2cAddress2,13,0)
-         bus.write_byte_data(i2cAddress1,14,255)
-         bus.write_byte_data(i2cAddress2,14,0)
-         bus.write_byte_data(i2cAddress1,15,0)
-         bus.write_byte_data(i2cAddress2,15,255)
+         # bus.write_word_data(i2cAddress1,5,0)
+         # bus.write_word_data(i2cAddress2,5,0)
+         #
+         # # do lights
+         # bus.write_byte_data(i2cAddress1,13,0)
+         # bus.write_byte_data(i2cAddress2,13,0)
+         # bus.write_byte_data(i2cAddress1,14,255)
+         # bus.write_byte_data(i2cAddress2,14,0)
+         # bus.write_byte_data(i2cAddress1,15,0)
+         # bus.write_byte_data(i2cAddress2,15,255)
         
          try:    # keep running
              while True:
@@ -163,18 +163,20 @@ class Base:
                     
                      print(data, end="\t")
                     
-                     rpm  = bus.read_word_data(i2cAddress1,5)
-                    
-                     print(rpm, end="\t")
-                    
-                     speed = bus.read_word_data(i2cAddress2,5)
-                    
-                     print(speed, end="\r")
+                     # rpm  = bus.read_word_data(i2cAddress1,5)
+                     #
+                     # print(rpm, end="\t")
+                     #
+                     # speed = bus.read_word_data(i2cAddress2,5)
+                     #
+                     # print(speed, end="\r")
                           
                      #print(formatted_txt,end='')
         
                      # now do the socket thing
-                     msg = pickle.dumps((data,rpm,speed,sample_rate))
+                     # msg = pickle.dumps((data,rpm,speed,sample_rate))
+                     msg = pickle.dumps(data)
+                     print("Size of Tuple1: " + str(msg.__sizeof__()) + "bytes")
                      #msg = bytes(f'{len(msg):<{HEADERSIZE}}',"utf-8") + msg
                      #msg = bytes(f'{len(msg):<{HEADERSIZE}}'+formatted_txt,"utf-8")
                     
