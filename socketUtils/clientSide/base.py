@@ -152,7 +152,7 @@ class MPU9250(socketPlotter):
             yield accel_data[0]  # for accelerometer
             
 class OilTemp(socketPlotter):
-    def __init__(self,ip='10.0.0.223',msgSize=95):
+    def __init__(self,ip='10.0.0.223',msgSize=268):
         self.msgSize = msgSize  #  specific to the message, has to be right, find size of msg being sent, put it here
         self.serverIP = ip
         self.serverPort = 1234
