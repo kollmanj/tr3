@@ -161,7 +161,7 @@ class Base:
                     #msg = bytes(f'{len(msg):<{HEADERSIZE}}'+formatted_txt,"utf-8")
                     
                     clientsocket.send(msg)
-                    
+                    print("Size of Tuple1: " + str(len(pickle.dumps(msg, -1))) + "bytes")
                 time.sleep(0.1)  # sleep some
                 
         except KeyboardInterrupt:
