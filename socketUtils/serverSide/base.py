@@ -185,7 +185,7 @@ class Base:
                      msgdict['OilTemp'] = data
                      msg = pickle.dumps(msgdict)
                      
-                     print("Size of Tuple1: " + len(pickle.dumps(msg, -1)) + "bytes")
+                     print("Size of Tuple1: " + str(len(pickle.dumps(msg, -1))) + "bytes")
                      #msg = bytes(f'{len(msg):<{HEADERSIZE}}',"utf-8") + msg
                      #msg = bytes(f'{len(msg):<{HEADERSIZE}}'+formatted_txt,"utf-8")
                     
