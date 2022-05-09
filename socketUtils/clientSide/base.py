@@ -150,7 +150,23 @@ class MPU9250(socketPlotter):
             accel_dict = self.msg[0] 
             accel_data = accel_dict['accel']   # for accelerometer
             yield accel_data[0]  # for accelerometer
-
+            
+class OilTemp(socketPlotter):
+    def __init__(self,ip='10.0.0.223',msgSize=41):
+        self.msgSize = msgSize  #  specific to the message, has to be right, find size of msg being sent, put it here
+        self.serverIP = ip
+        self.serverPort = 1234
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.sock.connect((self.serverIP,self.serverPort))
+        self.msg = []
+    def loop(self):  # this is the emmitter is the example
+        while True:
+            msg_bytes = self.sock.recv(self.msgSize)
+            self.msg = pickle.loads(msg_bytes)   #######################################ERROR HERE
+            accel_dict = self.msg
+            accel_data = accel_dict['OilTemp']   # for accelerometer
+            yield accel_data  # for accelerometer
+            
 # this class is for reading a data pickled and sent
 class tr3():
      def __init__(self,ip='10.0.0.223'):

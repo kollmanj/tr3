@@ -152,6 +152,11 @@ class Base:
          # bus.write_byte_data(i2cAddress2,14,0)
          # bus.write_byte_data(i2cAddress1,15,0)
          # bus.write_byte_data(i2cAddress2,15,255)
+         msgdict = {
+         "brand": "Ford",
+         "model": "Mustang",
+         "OilTemp": 0
+         }
         
          try:    # keep running
              while True:
@@ -175,7 +180,10 @@ class Base:
         
                      # now do the socket thing
                      # msg = pickle.dumps((data,rpm,speed,sample_rate))
-                     msg = pickle.dumps((data,data))
+                     
+
+                     msgdict['OilTemp'] = data
+                     msg = pickle.dumps(msgdict)
                      print("Size of Tuple1: " + str(msg.__sizeof__()) + "bytes")
                      #msg = bytes(f'{len(msg):<{HEADERSIZE}}',"utf-8") + msg
                      #msg = bytes(f'{len(msg):<{HEADERSIZE}}'+formatted_txt,"utf-8")
