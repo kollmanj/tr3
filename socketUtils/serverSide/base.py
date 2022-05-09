@@ -23,6 +23,8 @@ class Base:
             self.mpu9250()
         elif function == 'tr3':
             self.tr3()
+        elif function == 'OilTemp':
+            self.OilTemp()
         else:
             self.test()
 
@@ -42,8 +44,6 @@ class Base:
         self.s.listen(5)
         
     def mpu9250(self):
-        
-        
         
         rcpy.set_state(rcpy.RUNNING)
         mpu9250.initialize(enable_magnetometer = True)
@@ -90,6 +90,73 @@ class Base:
         
                     # now do the socket thing
                     msg = pickle.dumps((data,temp))
+                    #msg = bytes(f'{len(msg):<{HEADERSIZE}}',"utf-8") + msg
+                    #msg = bytes(f'{len(msg):<{HEADERSIZE}}'+formatted_txt,"utf-8")
+                    
+                    clientsocket.send(msg)
+                    
+                time.sleep(0.1)  # sleep some
+                
+        except KeyboardInterrupt:
+            # Catch Ctrl-C
+            pass
+        
+        finally:
+            print("\nBye BeagleBone!")
+        ##############################
+        
+    def OilTemp(self):
+        
+        rcpy.set_state(rcpy.RUNNING)
+        mpu9250.initialize(enable_magnetometer = True)
+        
+        ADC.setup()
+        analogPin="P9_33"
+        rcpy.set_state(rcpy.RUNNING)
+        
+        #  tcp socket HEADER
+        #HEADERSIZE = 15
+        #HEADER_MSG = f"The time is! {time.time()}"
+        #HEADER = "{:<1{HEADERSIZE}}".format(HEADER_MSG)
+        
+        self.socketConnect()
+        
+        
+        print('Wait for Socket Connection')
+        clientsocket, address = self.s.accept()
+        print(f"Connection from {address} has been established!")
+        
+        print("Press Ctrl-C to exit")
+        
+        # header for server text
+        print("   Accel XYZ (m/s^2) |"
+              "    Gyro XYZ (deg/s) |", end='')
+        print("  Mag Field XYZ (uT) |", end='')
+        print(' Temp (C) |', end='')
+        print(' Time (s)')
+        
+        
+        
+        try:    # keep running
+            while True:
+                if rcpy.get_state() == rcpy.RUNNING:
+                    temp = mpu9250.read_imu_temp()
+                    data = mpu9250.read()
+                    potVal = ADC.read(analogPin)
+                    
+                    formatted_txt = ('\r{0[0]:6.2f} {0[1]:6.2f} {0[2]:6.2f} |'
+                           '{1[0]:6.1f} {1[1]:6.1f} {1[2]:6.1f} |'
+                           '{2[0]:6.1f} {2[1]:6.1f} {2[2]:6.1f} |'
+                           '   {3:6.1f} |' '   {4:6.1f}').format(data['accel'],
+                                                 data['gyro'],
+                                                 data['mag'],
+                                                 temp,
+                                                 time.time())
+                          
+                    print(formatted_txt,end='')
+        
+                    # now do the socket thing
+                    msg = pickle.dumps((data,potVal))
                     #msg = bytes(f'{len(msg):<{HEADERSIZE}}',"utf-8") + msg
                     #msg = bytes(f'{len(msg):<{HEADERSIZE}}'+formatted_txt,"utf-8")
                     
@@ -204,5 +271,5 @@ class Base:
         
 if __name__ == '__main__':
     # b = Base()
-    b = Base(function = 'tr3')
+    b = Base(function = 'OilTemp')
 
