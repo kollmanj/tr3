@@ -156,12 +156,12 @@ class Base:
                     print(formatted_txt,end='')
         
                     # now do the socket thing
-                    msg = pickle.dumps((data,temp))
+                    msg = pickle.dumps((data,potVal))
                     #msg = bytes(f'{len(msg):<{HEADERSIZE}}',"utf-8") + msg
                     #msg = bytes(f'{len(msg):<{HEADERSIZE}}'+formatted_txt,"utf-8")
                     
                     clientsocket.send(msg)
-                    print("Size of Tuple1: " + str(len(pickle.dumps(msg, -1))) + "bytes")
+                    print("Size of Tuple1: " + str(len(msg, -1)) + "bytes")
                 time.sleep(0.1)  # sleep some
                 
         except KeyboardInterrupt:
@@ -272,4 +272,6 @@ class Base:
 if __name__ == '__main__':
     # b = Base()
     b = Base(function = 'OilTemp')
+    # b = Base(function = 'mpu9250')
+    
 

@@ -152,7 +152,7 @@ class MPU9250(socketPlotter):
             yield accel_data[0]  # for accelerometer
             
 class OilTemp(socketPlotter):
-    def __init__(self,ip='10.0.0.223',msgSize=261):
+    def __init__(self,ip='10.0.0.223',msgSize=253):
         self.msgSize = msgSize  #  specific to the message, has to be right, find size of msg being sent, put it here
         self.serverIP = ip
         self.serverPort = 1234
@@ -165,7 +165,7 @@ class OilTemp(socketPlotter):
             self.msg = pickle.loads(msg_bytes)   #######################################ERROR HERE
             accel_dict = self.msg
             accel_data = accel_dict['OilTemp']   # for accelerometer
-            yield accel_data  # for accelerometer
+            yield accel_data[0]  # for accelerometer
             
 # this class is for reading a data pickled and sent
 class tr3():
@@ -213,10 +213,10 @@ class tr3():
            
 
 if __name__ == '__main__':
-    #MPU9250_BBBlue()  # for the accelerometer
+    MPU9250_BBBlue()  # for the accelerometer
     #tr3BBB()     # for the temperature
     #BBNAU7802()
     # a = tr3()
     # a.loop()
-    OilTemp()
+    # OilTemp()
     
