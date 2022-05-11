@@ -174,7 +174,7 @@ class OilTemp(socketPlotter):
 # this class is for reading a data pickled and sent
 class tr3():
      def __init__(self,ip='10.0.0.223'):
-        self.msgSize = 41
+        self.msgSize = 290
         self.serverIP = ip
         self.serverPort = 1234
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -187,6 +187,7 @@ class tr3():
 
         
      def loop(self,dataType='temp'):
+        print('adsfa')
         while True:
             msg_bytes = self.sock.recv(self.msgSize)
             self.msg = pickle.loads(msg_bytes)
@@ -195,7 +196,9 @@ class tr3():
             # self.speed = self.msg[2]
             # self.sample_rate = self.msg[3]
             if dataType == 'temp':
-                reading = self.msg[0] 
+                reading = self.msg
+                print(reading)
+                print(type(reading))
                 # convert reading to Volts
                 Vmax = 1.8
                 V = Vmax*reading
@@ -220,7 +223,8 @@ if __name__ == '__main__':
     # MPU9250_BBBlue()  # for the accelerometer
     #tr3BBB()     # for the temperature
     #BBNAU7802()
-    # a = tr3()
+    a = tr3()
+    a.loop()
+    # a = OilTemp()
     # a.loop()
-    OilTemp()
     

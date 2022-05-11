@@ -156,7 +156,7 @@ class Base:
                     print(formatted_txt,end='')
         
                     # now do the socket thing
-                    msg = pickle.dumps({'OilTemp',potVal})
+                    msg = pickle.dumps({'OilTemp':potVal})
                     #msg = bytes(f'{len(msg):<{HEADERSIZE}}',"utf-8") + msg
                     #msg = bytes(f'{len(msg):<{HEADERSIZE}}'+formatted_txt,"utf-8")
                     
