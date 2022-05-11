@@ -162,7 +162,7 @@ class Base:
                     
                     clientsocket.send(msg)
                     print("Size of Tuple1: " + str(len(msg)) + "bytes")
-                time.sleep(0.1)  # sleep some
+                    time.sleep(0.1)  # sleep some
                 
         except KeyboardInterrupt:
             # Catch Ctrl-C

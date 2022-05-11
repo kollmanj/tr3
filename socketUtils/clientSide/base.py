@@ -127,6 +127,7 @@ class socketPlotter():
         
     def loop(self):  # this is the emmitter is the example
         while True:
+            print('HEREEEEEE5')
             msg_bytes = self.sock.recv(self.msgSize)
             self.msg = pickle.loads(msg_bytes)
             accel_dict = self.msg[0] 
@@ -152,15 +153,18 @@ class MPU9250(socketPlotter):
             yield accel_data[0]  # for accelerometer
             
 class OilTemp(socketPlotter):
-    def __init__(self,ip='10.0.0.223',msgSize=253):
+    def __init__(self,ip='10.0.0.223',msgSize=294):
         self.msgSize = msgSize  #  specific to the message, has to be right, find size of msg being sent, put it here
         self.serverIP = ip
         self.serverPort = 1234
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.connect((self.serverIP,self.serverPort))
         self.msg = []
+        print('HEREEEEEE1')
     def loop(self):  # this is the emmitter is the example
+        print('HEREEEEEE2')
         while True:
+            print('HEREEEEEE3')
             msg_bytes = self.sock.recv(self.msgSize)
             self.msg = pickle.loads(msg_bytes)   #######################################ERROR HERE
             accel_dict = self.msg[1]
