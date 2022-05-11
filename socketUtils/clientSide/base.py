@@ -163,7 +163,7 @@ class OilTemp(socketPlotter):
         while True:
             msg_bytes = self.sock.recv(self.msgSize)
             self.msg = pickle.loads(msg_bytes)   #######################################ERROR HERE
-            accel_dict = self.msg
+            accel_dict = self.msg[1]
             accel_data = accel_dict['OilTemp']   # for accelerometer
             yield accel_data[0]  # for accelerometer
             
@@ -213,10 +213,10 @@ class tr3():
            
 
 if __name__ == '__main__':
-    MPU9250_BBBlue()  # for the accelerometer
+    # MPU9250_BBBlue()  # for the accelerometer
     #tr3BBB()     # for the temperature
     #BBNAU7802()
     # a = tr3()
     # a.loop()
-    # OilTemp()
+    OilTemp()
     
