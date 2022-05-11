@@ -167,9 +167,9 @@ class OilTemp(socketPlotter):
             print('HEREEEEEE3')
             msg_bytes = self.sock.recv(self.msgSize)
             self.msg = pickle.loads(msg_bytes)   #######################################ERROR HERE
-            accel_dict = self.msg[1]
+            accel_dict = self.msg
             accel_data = accel_dict['OilTemp']   # for accelerometer
-            yield accel_data[0]  # for accelerometer
+            yield accel_data  # for accelerometer
             
 # this class is for reading a data pickled and sent
 class tr3():
