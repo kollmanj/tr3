@@ -49,6 +49,22 @@ def MPU9250_BBBlue():
         print('Interrupted')
         m.sock.close()
 
+def OilTemp_BBBlue():
+    try:
+        m = OilTemp('10.0.0.223')
+        
+        fig, ax = plt.subplots()
+        scope = Scope(ax,ylim_min=0,ylim_max=300)
+        
+        # pass a generator in "emitter" to produce data for the update func
+        ani = animation.FuncAnimation(fig, scope.update, m.loop, interval=10,
+                                      blit=True)
+        
+        plt.show()
+    except KeyboardInterrupt:
+        print('Interrupted')
+        m.sock.close()
+
 def tr3BBB():
     try:
         m = tr3('10.0.0.224') # ip address
@@ -153,7 +169,7 @@ class MPU9250(socketPlotter):
             yield accel_data[0]  # for accelerometer
             
 class OilTemp(socketPlotter):
-    def __init__(self,ip='10.0.0.223',msgSize=294):
+    def __init__(self,ip='10.0.0.223',msgSize=30):
         self.msgSize = msgSize  #  specific to the message, has to be right, find size of msg being sent, put it here
         self.serverIP = ip
         self.serverPort = 1234
@@ -161,20 +177,41 @@ class OilTemp(socketPlotter):
         self.sock.connect((self.serverIP,self.serverPort))
         self.msg = []
         print('HEREEEEEE1')
+        
+
+
+
+
+        
     def loop(self):  # this is the emmitter is the example
         print('HEREEEEEE2')
         while True:
-            print('HEREEEEEE3')
             msg_bytes = self.sock.recv(self.msgSize)
-            self.msg = pickle.loads(msg_bytes)   #######################################ERROR HERE
-            accel_dict = self.msg
-            accel_data = accel_dict['OilTemp']   # for accelerometer
-            yield accel_data  # for accelerometer
-            
+            self.msg = pickle.loads(msg_bytes)
+            #self.temperature = self.msg[0]
+            # self.rpm= self.msg[1]
+            # self.speed = self.msg[2]
+            # self.sample_rate = self.msg[3]
+            # if dataType == 'temp':
+            reading = self.msg
+            print(reading)
+            print(type(reading))
+            reading= reading['OilTemp']
+            # convert reading to Volts
+            Vmax = 1.8
+            V = Vmax*reading
+            R = 22  # resistor in the voltage divider
+            # convert voltage to resistance
+            ohms = R*V/(Vmax-V)
+            # convert from ohms to temperature
+            y2 = 852.51*ohms**-0.296
+            yield y2
+    
+
 # this class is for reading a data pickled and sent
 class tr3():
      def __init__(self,ip='10.0.0.223'):
-        self.msgSize = 290
+        self.msgSize = 30
         self.serverIP = ip
         self.serverPort = 1234
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -199,6 +236,7 @@ class tr3():
                 reading = self.msg
                 print(reading)
                 print(type(reading))
+                reading= reading['OilTemp']
                 # convert reading to Volts
                 Vmax = 1.8
                 V = Vmax*reading
@@ -223,8 +261,10 @@ if __name__ == '__main__':
     # MPU9250_BBBlue()  # for the accelerometer
     #tr3BBB()     # for the temperature
     #BBNAU7802()
-    a = tr3()
-    a.loop()
-    # a = OilTemp()
+    # a = tr3()
+    # a.loop()
+    a = OilTemp_BBBlue()
+    # print('sadfsdf')
+    # time.sleep(1.0)
     # a.loop()
     
