@@ -5,8 +5,9 @@ import sys
 import base
 
 
-def main():
 
+def main():
+    
     print("\nSparkFun Qwiic Alphanumeric - Example 4: Print String")
     my_display = qwiic_alphanumeric.QwiicAlphanumeric()
 
@@ -17,7 +18,16 @@ def main():
     
     print("\nQwiic Alphanumeric ready!")
 
-    my_display.print("1234")
+    b = Base(function = '')
+    
+    while True:
+        potVal = b.OilTemp(loop=False)    
+            
+        
+
+    
+        my_display.print(str(potVal))
+
 
 if __name__ == '__main__':
     try:

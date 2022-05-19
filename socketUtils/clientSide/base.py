@@ -143,7 +143,6 @@ class socketPlotter():
         
     def loop(self):  # this is the emmitter is the example
         while True:
-            print('HEREEEEEE5')
             msg_bytes = self.sock.recv(self.msgSize)
             self.msg = pickle.loads(msg_bytes)
             accel_dict = self.msg[0] 

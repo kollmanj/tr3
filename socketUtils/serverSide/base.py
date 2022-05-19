@@ -24,9 +24,10 @@ class Base:
         elif function == 'tr3':
             self.tr3()
         elif function == 'OilTemp':
-            self.OilTemp()
+            self.OilTemp(loop=True)
+
         else:
-            self.test()
+            print('Not starting yet')
 
     def test(self):
         self.socketConnect()
@@ -105,7 +106,7 @@ class Base:
             print("\nBye BeagleBone!")
         ##############################
         
-    def OilTemp(self):
+    def OilTemp(self,loop=True):
         
         rcpy.set_state(rcpy.RUNNING)
         mpu9250.initialize(enable_magnetometer = True)
@@ -138,7 +139,7 @@ class Base:
         
         
         try:    # keep running
-            while True:
+            while loop:
                 if rcpy.get_state() == rcpy.RUNNING:
                     temp = mpu9250.read_imu_temp()
                     data = mpu9250.read()
@@ -163,7 +164,7 @@ class Base:
                     clientsocket.send(msg)
                     print("Size of Tuple1: " + str(len(msg)) + "bytes")
                     time.sleep(0.1)  # sleep some
-                
+            return potVal    
         except KeyboardInterrupt:
             # Catch Ctrl-C
             pass
