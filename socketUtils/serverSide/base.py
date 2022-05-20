@@ -137,9 +137,9 @@ class Base:
         print(' Time (s)')
         
         
-        
+        OneTime = True
         try:    # keep running
-            while loop:
+            while loop or OneTime:
                 if rcpy.get_state() == rcpy.RUNNING:
                     temp = mpu9250.read_imu_temp()
                     data = mpu9250.read()
@@ -163,6 +163,7 @@ class Base:
                     
                     clientsocket.send(msg)
                     print("Size of Tuple1: " + str(len(msg)) + "bytes")
+                    OneTime = False
                     time.sleep(0.1)  # sleep some
             return potVal    
         except KeyboardInterrupt:

@@ -18,7 +18,7 @@ def main():
     
     print("\nQwiic Alphanumeric ready!")
 
-    b = Base(function = '')
+    b = base.Base(function = '')
     
     while True:
         potVal = b.OilTemp(loop=False)    
