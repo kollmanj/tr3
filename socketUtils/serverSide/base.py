@@ -163,9 +163,9 @@ class Base:
                     msg = pickle.dumps({'OilTemp':potVal})
                     #msg = bytes(f'{len(msg):<{HEADERSIZE}}',"utf-8") + msg
                     #msg = bytes(f'{len(msg):<{HEADERSIZE}}'+formatted_txt,"utf-8")
-                    
-                    clientsocket.send(msg)
                     print("Size of Tuple1: " + str(len(msg)) + "bytes")
+                    clientsocket.send(msg)
+                    
                     OneTime = False
                     time.sleep(0.1)  # sleep some
             return potVal    
