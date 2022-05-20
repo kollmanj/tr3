@@ -24,7 +24,7 @@ class Base:
         elif function == 'tr3':
             self.tr3()
         elif function == 'OilTemp':
-            self.OilTemp(loop=True)
+            self.OilTempSetup()
 
         else:
             print('Not starting yet')
@@ -106,8 +106,7 @@ class Base:
             print("\nBye BeagleBone!")
         ##############################
         
-    def OilTemp(self,loop=True):
-        
+    def OilTempSetup(self):
         rcpy.set_state(rcpy.RUNNING)
         mpu9250.initialize(enable_magnetometer = True)
         
@@ -136,6 +135,10 @@ class Base:
         print(' Temp (C) |', end='')
         print(' Time (s)')
         
+        
+    def OilTemp(self,loop=True):
+        
+
         
         OneTime = True
         try:    # keep running
