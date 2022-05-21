@@ -160,10 +160,11 @@ class Base:
                                                  time.time())
                           
                     print(formatted_txt,end='')
-                    print("Size of Tuple1: " + str(len(msg)) + "bytes")
+                    
         
                     # now do the socket thing
                     msg = pickle.dumps({'OilTemp':potVal})
+                    print("Size of Tuple1: " + str(len(msg)) + "bytes")
                     #msg = bytes(f'{len(msg):<{HEADERSIZE}}',"utf-8") + msg
                     #msg = bytes(f'{len(msg):<{HEADERSIZE}}'+formatted_txt,"utf-8")
                     
