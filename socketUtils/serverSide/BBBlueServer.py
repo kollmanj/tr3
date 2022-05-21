@@ -22,10 +22,10 @@ def functionToPassIn(x):
     # b.OilTemp()    
             
         
-
+    x = str(int(1000*x))
     
     my_display.print(str(x))
-    my_display.print('1234')
+    # my_display.print('1234')
 
 def main():
     
