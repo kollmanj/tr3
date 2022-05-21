@@ -24,7 +24,7 @@ class Base:
         elif function == 'tr3':
             self.tr3()
         elif function == 'OilTemp':
-            self.OilTempSetup()
+            # self.OilTempSetup()
             self.OilTemp()
 
         else:
@@ -107,7 +107,12 @@ class Base:
             print("\nBye BeagleBone!")
         ##############################
         
-    def OilTempSetup(self):
+    # def OilTempSetup(self):
+
+        
+        
+    # def OilTemp(self,loop=True):
+    def OilTemp(self):    
         rcpy.set_state(rcpy.RUNNING)
         mpu9250.initialize(enable_magnetometer = True)
         
@@ -135,11 +140,6 @@ class Base:
         print("  Mag Field XYZ (uT) |", end='')
         print(' Temp (C) |', end='')
         print(' Time (s)')
-        
-        
-    # def OilTemp(self,loop=True):
-    def OilTemp(self):    
-        
 
         
         # OneTime = True
