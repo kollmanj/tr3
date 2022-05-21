@@ -112,7 +112,7 @@ class Base:
         
         
     # def OilTemp(self,loop=True):
-    def OilTemp(self):    
+    def OilTemp(self, additionalFunction=lambda x: print(x)):    
         rcpy.set_state(rcpy.RUNNING)
         mpu9250.initialize(enable_magnetometer = True)
         
@@ -165,6 +165,7 @@ class Base:
                     # now do the socket thing
                     msg = pickle.dumps({'OilTemp':potVal})
                     print("Size of Tuple1: " + str(len(msg)) + "bytes")
+                    additionalFunction(potVal)
                     #msg = bytes(f'{len(msg):<{HEADERSIZE}}',"utf-8") + msg
                     #msg = bytes(f'{len(msg):<{HEADERSIZE}}'+formatted_txt,"utf-8")
                     
