@@ -25,6 +25,7 @@ class Base:
             self.tr3()
         elif function == 'OilTemp':
             self.OilTempSetup()
+            self.OilTemp()
 
         else:
             print('Not starting yet')
