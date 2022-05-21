@@ -159,17 +159,18 @@ class Base:
                                                  time.time())
                           
                     print(formatted_txt,end='')
+                    print("Size of Tuple1: " + str(len(msg)) + "bytes")
         
                     # now do the socket thing
                     msg = pickle.dumps({'OilTemp':potVal})
                     #msg = bytes(f'{len(msg):<{HEADERSIZE}}',"utf-8") + msg
                     #msg = bytes(f'{len(msg):<{HEADERSIZE}}'+formatted_txt,"utf-8")
-                    print("Size of Tuple1: " + str(len(msg)) + "bytes")
+                    
                     clientsocket.send(msg)
                     
                     OneTime = False
                     time.sleep(0.1)  # sleep some
-            return potVal    
+            # return potVal    
         except KeyboardInterrupt:
             # Catch Ctrl-C
             pass
