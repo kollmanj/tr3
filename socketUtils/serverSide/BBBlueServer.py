@@ -24,7 +24,7 @@ def functionToPassIn(x):
         
 
     
-    my_display.print(str(potVal))
+    my_display.print(str(x))
     my_display.print('1234')
 
 def main():
@@ -42,7 +42,7 @@ def main():
     b = base.Base(function = '')
     
     # while True:
-    b.OilTemp()    
+    b.OilTemp(additionalFunction=functionToPassIn)    
             
         
 
