@@ -20,13 +20,13 @@ def main():
 
     b = base.Base(function = '')
     
-    while True:
-        potVal = b.OilTemp(loop=False)    
+    # while True:
+    b.OilTemp()    
             
         
 
     
-        my_display.print(str(potVal))
+    # my_display.print(str(potVal))
 
 
 if __name__ == '__main__':

@@ -136,13 +136,14 @@ class Base:
         print(' Time (s)')
         
         
-    def OilTemp(self,loop=True):
+    # def OilTemp(self,loop=True):
+    def OilTemp(self):    
         
 
         
-        OneTime = True
+        # OneTime = True
         try:    # keep running
-            while loop or OneTime:
+            while True:
                 if rcpy.get_state() == rcpy.RUNNING:
                     temp = mpu9250.read_imu_temp()
                     data = mpu9250.read()
